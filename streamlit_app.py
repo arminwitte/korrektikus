@@ -47,7 +47,7 @@ def run_gemini_api():
   text = st.session_state.input
   # Replace with your actual Gemini API endpoint and authorization
   url = "https://your-gemini-api-endpoint/path/to/resource"
-  headers = {"Authorization": f"Bearer {st.secrets("API_KEY")}"} # Replace with your API key
+  headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
   # response = requests.post(url, headers=headers, json={"text": text})
