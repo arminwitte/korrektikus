@@ -31,7 +31,7 @@ def check_password():
         # Password correct.
         return True
 
-def run_gemini_api(text_input, text_output):
+def run_gemini_api():
   """Simulates a Gemini API call using requests (for demo purposes only).
 
   **Important:** Due to security constraints, Streamlit apps deployed to production
