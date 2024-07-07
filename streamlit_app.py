@@ -44,14 +44,23 @@ def run_gemini_api():
   Returns:
       A string containing a simulated Gemini API response.
   """
+
   text = st.session_state.input
+
+  # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
+  GOOGLE_API_KEY=st.secrets['API_KEY']
+
+  genai.configure(api_key=GOOGLE_API_KEY)
+  model = genai.GenerativeModel('gemini-1.5-flash')
+  response = model.generate_content("What is the meaning of life?")
+  
   # Replace with your actual Gemini API endpoint and authorization
   url = "https://your-gemini-api-endpoint/path/to/resource"
   # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
   # response = requests.post(url, headers=headers, json={"text": text})
-  st.session_state.output = text
+  st.session_state.output = response.text
 
 
 
