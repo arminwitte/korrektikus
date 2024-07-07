@@ -59,7 +59,7 @@ def run_gemini_api(text):
 if check_password():
     st.header("Korrektikus")
     text_input = st.text_area("Enter Text Here", height=250)
-    text_output = St.markdown("Here comes the *output*")
+    text_output = st.markdown("Here comes the *output*")
     button = st.button("correct", on_click=run_gemini_api, args=(text_input,))
 
 
