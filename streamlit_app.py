@@ -47,7 +47,7 @@ def run_gemini_api():
 
   text = st.session_state.input
 
-  prompt_context = "Korrigiere bitte folgenden text hinsichtlich Orthographie, Grammatik, Typografie, Stil und Konsistenz. Der Stil des Textes soll sachlich, nüchtern, prägnant und wissenschaftlich sein. Füge die Korrekturen fett in den Text ein. Der Text lautet:\n"
+  prompt_context = "Korrigiere bitte folgenden text hinsichtlich Orthographie, Grammatik, Typografie, Stil und Konsistenz. Der Stil des Textes soll sachlich, nüchtern, prägnant und wissenschaftlich sein. Insbesondere sollen die Richtlinien der APA 7. Auflage berücksichtigt werden.Füge die Korrekturen kursiv in den Text ein. Der Text lautet:\n"
 
   # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
   GOOGLE_API_KEY=st.secrets['API_KEY']
