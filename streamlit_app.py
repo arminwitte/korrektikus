@@ -1,7 +1,7 @@
 # streamlit_app.py
 
 import streamlit as st
-import requests
+import google.generativeai as genai
 
 def check_password():
     """Returns `True` if the user had the correct password."""
