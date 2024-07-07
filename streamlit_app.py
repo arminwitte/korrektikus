@@ -51,14 +51,17 @@ def run_gemini_api():
 
   # Simulate API request (cannot directly call in Streamlit)
   # response = requests.post(url, headers=headers, json={"text": text})
-  st.session_state["output"] = text
+  st.session_state.output = text
 
 
 
 if check_password():
+    if 'output' not in st.session_state:
+        st.session_state['output'] = "Here comes the *output*"
+
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
     col1.text_area("Enter Text Here", height=250, key="input")
     st.button("correct", on_click=run_gemini_api)
-    col2.markdown("Here comes the *output*", key="output")
+    col2.markdown(st.session_state.output)
 
