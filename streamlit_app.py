@@ -56,11 +56,10 @@ def run_gemini_api():
 
 
 if check_password():
-    st.session_state["output"] = "output"
+    st.session_state["output"] = "Here comes the *output*"
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
     col1.text_area("Enter Text Here", height=250, key="input")
-    text_output = st.markdown("Here comes the *output*")
     st.button("correct", on_click=run_gemini_api)
     col2.markdown(st.session_state["output"])
 
