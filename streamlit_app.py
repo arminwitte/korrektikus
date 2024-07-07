@@ -52,7 +52,7 @@ def run_gemini_api():
 
   genai.configure(api_key=GOOGLE_API_KEY)
   model = genai.GenerativeModel('gemini-1.5-flash')
-  response = model.generate_content("What is the meaning of life?")
+  response = model.generate_content(text)
   
   # Replace with your actual Gemini API endpoint and authorization
   url = "https://your-gemini-api-endpoint/path/to/resource"
