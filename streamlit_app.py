@@ -47,12 +47,14 @@ def run_gemini_api():
 
   text = st.session_state.input
 
+  prompt_context = "Korrigiere bitte folgenden text hinsichtlich Orthographie, Grammatik, Typografie, Stil und Konsistenz. Füge die Korrekturen kursiv in den Text ein. Der Text lautet:\n"
+
   # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
   GOOGLE_API_KEY=st.secrets['API_KEY']
 
   genai.configure(api_key=GOOGLE_API_KEY)
   model = genai.GenerativeModel('gemini-1.5-flash')
-  response = model.generate_content(text)
+  response = model.generate_content(prompt_context + text)
   
   # Replace with your actual Gemini API endpoint and authorization
   url = "https://your-gemini-api-endpoint/path/to/resource"
