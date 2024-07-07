@@ -62,6 +62,6 @@ if check_password():
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
     col1.text_area("Enter Text Here", height=250, key="input")
-    st.button("correct", on_click=run_gemini_api)
+    st.sidebar.button("correct", on_click=run_gemini_api)
     col2.markdown(st.session_state.output)
 
