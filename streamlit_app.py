@@ -77,7 +77,7 @@ def run_simplify():
 
   genai.configure(api_key=GOOGLE_API_KEY)
   model = genai.GenerativeModel('gemini-1.5-flash')
-  response = model.generate_content([prompt_context, prompt_context])
+  response = model.generate_content([prompt_context, img])
   
   # Replace with your actual Gemini API endpoint and authorization
   url = "https://your-gemini-api-endpoint/path/to/resource"
