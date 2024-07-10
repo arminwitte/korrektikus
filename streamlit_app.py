@@ -2,6 +2,7 @@
 
 import streamlit as st
 import google.generativeai as genai
+import PIL
 
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -64,15 +65,48 @@ def run_gemini_api():
   # response = requests.post(url, headers=headers, json={"text": text})
   st.session_state.output = response.text
 
+def run_simplify():
+  img = st.session_state.file
+  img = PIL.Image.open(img)
+
+  prompt_context = "Erkenne den Text im Bild und übersetze ihn in einfache deutsche Sprache"
+  
+
+  # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
+  GOOGLE_API_KEY=st.secrets['API_KEY']
+
+  genai.configure(api_key=GOOGLE_API_KEY)
+  model = genai.GenerativeModel('gemini-1.5-flash')
+  response = model.generate_content([prompt_context, prompt_context])
+  
+  # Replace with your actual Gemini API endpoint and authorization
+  url = "https://your-gemini-api-endpoint/path/to/resource"
+  # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
+
+  # Simulate API request (cannot directly call in Streamlit)
+  # response = requests.post(url, headers=headers, json={"text": text})
+  st.session_state.output = response.text
+
+
 
 
 if check_password():
     if 'output' not in st.session_state:
         st.session_state['output'] = "Here comes the *output*"
-
+    
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
-    col1.text_area("Enter Text Here", height=250, key="input")
+    with col1:
+        tab1, tab2 = st.tabs(["Text", "Image"])
+    with tab1:
+        st.text_area("Enter Text Here", height=250, key="input")
+    with tab2:
+        uploaded_file = st.file_uploader("Choose a file")
+        st.session_state['file'] = uploaded_file
+        
     st.sidebar.button("correct", on_click=run_gemini_api)
-    col2.markdown(st.session_state.output)
+    st.sidebar.button("simplify", on_click=run_simplify)
+    
+    with col2:
+        st.markdown(st.session_state.output)
 
