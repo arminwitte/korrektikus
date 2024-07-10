@@ -69,7 +69,7 @@ def run_simplify():
   img = st.session_state.file
   img = PIL.Image.open(img)
 
-  prompt_context = "Erkenne den Text im Bild und übersetze ihn in einfache deutsche Sprache"
+  prompt_context = "Erkenne den Text im Bild und gib ihn direkt wieder. Übersetze den Text zudem in einfache, kindgerechte deutsche Sprache."
   
 
   # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
