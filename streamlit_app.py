@@ -4,7 +4,7 @@ import streamlit as st
 import google.generativeai as genai
 import PIL
 
-from .markdownletter import MarkdownLetter
+from markdownletter import MarkdownLetter
 
 def check_password():
     """Returns `True` if the user had the correct password."""
