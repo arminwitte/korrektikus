@@ -51,19 +51,21 @@ def run_gemini_api():
   prompt_context = "Korrigiere bitte folgenden text hinsichtlich Orthographie, Grammatik, Typografie, Stil und Konsistenz. Der Stil des Textes soll sachlich, nüchtern, prägnant und wissenschaftlich sein. Insbesondere sollen die Richtlinien der APA 7. Auflage berücksichtigt werden. Gib nur den korrigierten Text wieder und markiere alle Veränderungen gegenüber dem Originaltext kursiv. Der Text lautet:\n"
 
   # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
-  GOOGLE_API_KEY=st.secrets['API_KEY']
+  # GOOGLE_API_KEY=st.secrets['API_KEY']
 
-  genai.configure(api_key=GOOGLE_API_KEY)
-  model = genai.GenerativeModel('gemini-1.5-flash')
-  response = model.generate_content(prompt_context + text)
-  
+  # genai.configure(api_key=GOOGLE_API_KEY)
+  # model = genai.GenerativeModel('gemini-1.5-flash')
+  # response = model.generate_content(prompt_context + text)
+
+  ai.context = prompt_context
+  ai.query_text(text)
   # Replace with your actual Gemini API endpoint and authorization
   # url = "https://your-gemini-api-endpoint/path/to/resource"
   # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
   # response = requests.post(url, headers=headers, json={"text": text})
-  st.session_state.output = response.text
+  st.session_state.output = ai.response.text
 
 def run_simplify():
   img = st.session_state.file
@@ -73,26 +75,44 @@ def run_simplify():
   
 
   # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
-  GOOGLE_API_KEY=st.secrets['API_KEY']
+  # GOOGLE_API_KEY=st.secrets['API_KEY']
 
-  genai.configure(api_key=GOOGLE_API_KEY)
-  model = genai.GenerativeModel('gemini-1.5-flash')
-  response = model.generate_content([prompt_context, img])
-  
+  # genai.configure(api_key=GOOGLE_API_KEY)
+  # model = genai.GenerativeModel('gemini-1.5-flash')
+  # response = model.generate_content([prompt_context, img])
+
+  ai.context = prompt_context
+  ai.query_img(img)
   # Replace with your actual Gemini API endpoint and authorization
   # url = "https://your-gemini-api-endpoint/path/to/resource"
   # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
   # response = requests.post(url, headers=headers, json={"text": text})
-  st.session_state.output = response.text
+  st.session_state.output = ai.response.text
 
 
+class AI:
+    def __init__(self, api_key):
+        genai.configure(api_key=api_key)
+        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.context = ""
+        self.response = None
 
+    def query_text(self, text):
+        self.response = model.generate_content(self.context + text)
+
+    def query_img(self, img):
+        self.response = model.generate_content([self.context, img])
+  
+        
 
 if check_password():
     if 'output' not in st.session_state:
         st.session_state['output'] = "Here comes the *output*"
+
+    GOOGLE_API_KEY=st.secrets['API_KEY']
+    ai = AI(GOOGLE_API_KEY) 
     
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
