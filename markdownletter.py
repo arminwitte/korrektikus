@@ -49,9 +49,10 @@ class DIN5002Letter:
         """
         return self.pdf_document.write()
 
-# Beispiel
-letter = DIN5002Letter("Max Mustermann\nMusterstraße 1\n12345 Musterstadt")
-letter.write("""
+if __name__ == "__main__":
+    # Beispiel
+    letter = DIN5002Letter("Max Mustermann\nMusterstraße 1\n12345 Musterstadt")
+    letter.write("""
 ## Betreff: Wichtige Information
 
 Hallo Max,
