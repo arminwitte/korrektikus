@@ -1,5 +1,5 @@
 # created with gemini
-import fitz  # pymupdf
+import pymupdf
 import markdown
 from markdown.extensions.extra import ExtraExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
@@ -8,7 +8,7 @@ from markdown.extensions.toc import TocExtension
 class MarkdownLetter:
     def __init__(self, recipient_address):
         self.recipient_address = recipient_address
-        self.pdf_document = fitz.open()
+        self.pdf_document = pymupdf.open()
         self.page = self.pdf_document.new_page(width=595, height=842)  # DIN A4 in Punkten
 
     def write(self, markdown_content):
@@ -32,7 +32,7 @@ class MarkdownLetter:
         recipient_address_html = f"<div class='recipient-address'>{self.recipient_address}</div>"
 
         # Füge den HTML-Inhalt zur Seite hinzu
-        self.page.insert_html(
+        self.page.insert_htmlbox(
             0,
             html=recipient_address_html + html,
             font_name="Times-Roman",
