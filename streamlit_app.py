@@ -4,6 +4,8 @@ import streamlit as st
 import google.generativeai as genai
 import PIL
 
+from .markdownletter import MarkdownLetter
+
 def check_password():
     """Returns `True` if the user had the correct password."""
 
@@ -117,7 +119,7 @@ if check_password():
     st.header("Korrektikus")
     col1, col2 = st.columns(2)
     with col1:
-        tab1, tab2 = st.tabs(["Text", "Image"])
+        tab1, tab2, tab3 = st.tabs(["Text", "Image", "Letter"])
         
     with tab1:
         st.text_area("Enter Text Here", height=250, key="input")
@@ -127,6 +129,18 @@ if check_password():
         uploaded_file = st.file_uploader("Choose a file")
         st.session_state['file'] = uploaded_file
         st.button("simplify", on_click=run_simplify)
+
+    with tab3:
+        st.text_area("Enter Text Here", height=250, key="input")
+        letter = MarkdownLetter("Max")
+        letter_bytes = letter.save()
+        st.download_button(
+    label="Download letter",
+    data=letter_bytes,
+    file_name="letter.pff",
+    mime="application/pdf",
+      )
+        
     
     with col2:
         st.markdown(st.session_state.output)
