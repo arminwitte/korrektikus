@@ -34,8 +34,6 @@ class MarkdownLetter:
         # Füge den HTML-Inhalt zur Seite hinzu
         self.page.insert_htmlbox(self.page.rect,  recipient_address_html,) #css=css, archive=arch, rotate=90)
 
-        )
-
     def save(self):
         """
         Speichert das PDF unter dem angegebenen Dateinamen.
