@@ -131,8 +131,9 @@ if check_password():
         st.button("simplify", on_click=run_simplify)
 
     with tab3:
-        st.text_area("Enter Text Here", height=250, key="input")
+        st.text_area("Enter Text Here", height=250, key="letter_input")
         letter = MarkdownLetter("Max")
+        letter.write(st.session_state.letter_input)
         letter_bytes = letter.save()
         st.download_button(
     label="Download letter",
