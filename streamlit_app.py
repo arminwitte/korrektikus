@@ -100,10 +100,10 @@ class AI:
         self.response = None
 
     def query_text(self, text):
-        self.response = model.generate_content(self.context + text)
+        self.response = self.model.generate_content(self.context + text)
 
     def query_img(self, img):
-        self.response = model.generate_content([self.context, img])
+        self.response = self.model.generate_content([self.context, img])
   
         
 
