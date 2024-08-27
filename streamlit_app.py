@@ -58,7 +58,7 @@ def run_gemini_api():
   response = model.generate_content(prompt_context + text)
   
   # Replace with your actual Gemini API endpoint and authorization
-  url = "https://your-gemini-api-endpoint/path/to/resource"
+  # url = "https://your-gemini-api-endpoint/path/to/resource"
   # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
@@ -80,7 +80,7 @@ def run_simplify():
   response = model.generate_content([prompt_context, img])
   
   # Replace with your actual Gemini API endpoint and authorization
-  url = "https://your-gemini-api-endpoint/path/to/resource"
+  # url = "https://your-gemini-api-endpoint/path/to/resource"
   # headers = {"Authorization": f"Bearer {st.secrets('API_KEY')}"} # Replace with your API key
 
   # Simulate API request (cannot directly call in Streamlit)
@@ -98,14 +98,15 @@ if check_password():
     col1, col2 = st.columns(2)
     with col1:
         tab1, tab2 = st.tabs(["Text", "Image"])
+        
     with tab1:
         st.text_area("Enter Text Here", height=250, key="input")
+        st.button("correct", on_click=run_gemini_api)
+    
     with tab2:
         uploaded_file = st.file_uploader("Choose a file")
         st.session_state['file'] = uploaded_file
-        
-    st.sidebar.button("correct", on_click=run_gemini_api)
-    st.sidebar.button("simplify", on_click=run_simplify)
+        st.button("simplify", on_click=run_simplify)
     
     with col2:
         st.markdown(st.session_state.output)
