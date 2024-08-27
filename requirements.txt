@@ -1,6 +1,5 @@
 streamlit
 google-generativeai
 markdown
-weasyprint
 Pillow
-
+pymupdf
