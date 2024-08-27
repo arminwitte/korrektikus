@@ -47,7 +47,7 @@ class MarkdownLetter:
         )
         self.html_content = self.html_template.format(self.recipient_address, html)
 
-    def save(self, file_object):
+    def save(self):
         """
         Speichert das PDF unter dem angegebenen Dateinamen.
 
@@ -57,7 +57,7 @@ class MarkdownLetter:
         html = HTML(string=self.html_content)
 
         # Without arguments, this method returns a byte string in memory. If you pass a file name or a writable file object, they will write there directly instead. (Warning: with a filename, these methods will overwrite existing files silently.)
-        html.write_pdf(file_object, stylesheets=["https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.css"])
+        return html.write_pdf(stylesheets=["https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.css"])
 
 if __name__ == "__main__":
     # Beispiel
