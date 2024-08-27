@@ -5,7 +5,7 @@ from markdown.extensions.extra import ExtraExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.extensions.toc import TocExtension
 
-class DIN5002Letter:
+class MarkdownLetter:
     def __init__(self, recipient_address):
         self.recipient_address = recipient_address
         self.pdf_document = fitz.open()
