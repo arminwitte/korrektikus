@@ -1,33 +1,15 @@
 # created with gemini
-
-import weasyprint
-from weasyprint import HTML
+import fitz  # pymupdf
 import markdown
 from markdown.extensions.extra import ExtraExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.extensions.toc import TocExtension
 
-class MarkdownLetter:
+class DIN5002Letter:
     def __init__(self, recipient_address):
         self.recipient_address = recipient_address
-        self.html_template = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                /* Hier können Sie weitere CSS-Styles hinzufügen */
-                body { font-family: Arial, sans-serif; }
-                .recipient-address { font-weight: bold; }
-                /* GitHub Markdown CSS */
-                /* ... */
-            </style>
-        </head>
-        <body>
-            <div class="recipient-address">{}</div>
-            {}
-        </body>
-        </html>
-        """
+        self.pdf_document = fitz.open()
+        self.page = self.pdf_document.new_page(width=595, height=842)  # DIN A4 in Punkten
 
     def write(self, markdown_content):
         """
@@ -45,7 +27,18 @@ class MarkdownLetter:
                 TocExtension(baselevel=2)
             ]
         )
-        self.html_content = self.html_template.format(self.recipient_address, html)
+
+        # Erstelle ein HTML-Element für die Empfängeradresse
+        recipient_address_html = f"<div class='recipient-address'>{self.recipient_address}</div>"
+
+        # Füge den HTML-Inhalt zur Seite hinzu
+        self.page.insert_html(
+            0,
+            html=recipient_address_html + html,
+            font_name="Times-Roman",
+            font_size=12,
+            spacing=1.5
+        )
 
     def save(self):
         """
@@ -54,15 +47,11 @@ class MarkdownLetter:
         Args:
             filename (str, optional): Der Dateiname. Defaults to "brief.pdf".
         """
-        html = HTML(string=self.html_content)
+        return self.pdf_document.write()
 
-        # Without arguments, this method returns a byte string in memory. If you pass a file name or a writable file object, they will write there directly instead. (Warning: with a filename, these methods will overwrite existing files silently.)
-        return html.write_pdf(stylesheets=["https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.css"])
-
-if __name__ == "__main__":
-    # Beispiel
-    letter = DIN5002Letter("Max Mustermann\nMusterstraße 1\n12345 Musterstadt")
-    letter.write("""
+# Beispiel
+letter = DIN5002Letter("Max Mustermann\nMusterstraße 1\n12345 Musterstadt")
+letter.write("""
 ## Betreff: Wichtige Information
 
 Hallo Max,
