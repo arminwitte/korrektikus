@@ -32,12 +32,8 @@ class MarkdownLetter:
         recipient_address_html = f"<div class='recipient-address'>{self.recipient_address}</div>"
 
         # Füge den HTML-Inhalt zur Seite hinzu
-        self.page.insert_htmlbox(
-            0,
-            html=recipient_address_html + html,
-            font_name="Times-Roman",
-            font_size=12,
-            spacing=1.5
+        self.page.insert_htmlbox(self.page.rect,  recipient_address_html,) #css=css, archive=arch, rotate=90)
+
         )
 
     def save(self):
